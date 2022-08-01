@@ -69,7 +69,7 @@ func main() {
 			innerWriter := writers[i]
 			for _, v := range chunk {
 				info := result.Get(v)
-				fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%8.2f%%\t",
+				fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%\t",
 					v, info.Get("high").Float(), info.Get("low").Float(), info.Get("price").Float(),
 					info.Get("percent").Float()*100)
 			}
