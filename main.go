@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gosuri/uilive"
+	"github.com/spf13/viper"
 	"github.com/tidwall/gjson"
 	"io"
 	"io/ioutil"
@@ -35,16 +36,27 @@ var stocks []string
 var result gjson.Result
 
 func main() {
-	stocks = []string{
-		"0000001", "1399006",
-		"1000651", "0600050",
-		"0513050", "0512800",
-		"1002701", "0601318",
-		"0510050", "0512010",
-		"0512980", "0513360",
-	}
+	config := viper.New()
+	config.AddConfigPath(".")
+	config.SetConfigName("config")
+	config.SetConfigType("json")
+	config.ReadInConfig()
 
-	count := len(stocks)
+	var configJson Config
+	config.Unmarshal(&configJson)
+
+	//stocks = []string{
+	//	"0000001", "1399006",
+	//	"1002701", "0513360",
+	//	"0600050", "0510050",
+	//	"0600028", "0512880",
+	//	"0601318", "0512010",
+	//	"1300059", "0512800",
+	//	"0601816", "0513050",
+	//	"1000651",
+	//}
+
+	count := len(configJson.Stocks)
 	lines := count / 2
 	if count%2 == 0 {
 		lines++
@@ -61,14 +73,14 @@ func main() {
 		writers = append(writers, writer.Newline())
 	}
 
-	chunks := ArrayChunk(stocks, 2)
+	chunks := ArrayChunk(configJson.Stocks, 2)
 
 	for {
 
 		for i, chunk := range chunks {
 			innerWriter := writers[i]
 			for _, v := range chunk {
-				info := result.Get(v)
+				info := result.Get(v.code)
 				fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%\t",
 					v, info.Get("high").Float(), info.Get("low").Float(), info.Get("price").Float(),
 					info.Get("percent").Float()*100)
@@ -102,6 +114,8 @@ func main() {
 }
 
 func GetStockInfo() {
+	//TODO:刷选出对应的CODE
+
 	url := fmt.Sprintf("https://api.money.126.net/data/feed/%s?callback=go", strings.Join(stocks, ","))
 	r, e := http.Get(url)
 	if e == nil {
@@ -120,13 +134,13 @@ func GetStockInfo() {
 //	wg.Done()
 //}
 
-func ArrayChunk(s []string, size int) [][]string {
+func ArrayChunk(s []Stock, size int) [][]Stock {
 	if size < 1 {
 		panic("size: cannot be less than 1")
 	}
 	length := len(s)
 	chunks := int(math.Ceil(float64(length) / float64(size)))
-	var n [][]string
+	var n [][]Stock
 	for i, end := 0, 0; chunks > 0; chunks-- {
 		end = (i + 1) * size
 		if end > length {
