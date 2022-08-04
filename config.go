@@ -1,7 +1,15 @@
 package main
 
+type Grid struct {
+	Level int8
+	Buy   float32
+	Sell  float32
+	Hold  int64
+}
+
 type Stock struct {
-	Code string
+	Code  string
+	Grids []Grid
 }
 
 type Config struct {
