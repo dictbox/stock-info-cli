@@ -44,18 +44,7 @@ func main() {
 
 	var configJson Config
 	config.Unmarshal(&configJson)
-
-	//stocks = []string{
-	//	"0000001", "1399006",
-	//	"1002701", "0513360",
-	//	"0600050", "0510050",
-	//	"0600028", "0512880",
-	//	"0601318", "0512010",
-	//	"1300059", "0512800",
-	//	"0601816", "0513050",
-	//	"1000651",
-	//}
-
+	stocks = Map(configJson.Stocks)
 	count := len(configJson.Stocks)
 	lines := count / 2
 	if count%2 == 0 {
@@ -80,9 +69,9 @@ func main() {
 		for i, chunk := range chunks {
 			innerWriter := writers[i]
 			for _, v := range chunk {
-				info := result.Get(v.code)
+				info := result.Get(v.Code)
 				fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%\t",
-					v, info.Get("high").Float(), info.Get("low").Float(), info.Get("price").Float(),
+					v.Code, info.Get("high").Float(), info.Get("low").Float(), info.Get("price").Float(),
 					info.Get("percent").Float()*100)
 			}
 
