@@ -45,6 +45,8 @@ func main() {
 	var configJson Config
 	config.Unmarshal(&configJson)
 	stocks = Map(configJson.Stocks)
+	stocks = append(stocks, configJson.Index...)
+
 	count := len(configJson.Stocks)
 	lines := count / 2
 	if count%2 == 0 {
@@ -58,16 +60,25 @@ func main() {
 	writer.Start()
 	var writers []io.Writer
 	writers = append(writers, writer)
-	for j := 0; j < lines; j++ {
+	for j := 0; j <= lines; j++ {
 		writers = append(writers, writer.Newline())
 	}
 
 	chunks := ArrayChunk(configJson.Stocks, 2)
 
 	for {
+		//打印指数
+		innerWriter := writers[0]
+		for _, indexCode := range configJson.Index {
+			info := result.Get(indexCode)
+			fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%\t",
+				indexCode, info.Get("high").Float(), info.Get("low").Float(), info.Get("price").Float(),
+				info.Get("percent").Float()*100)
+		}
+		fmt.Fprintln(innerWriter)
 
 		for i, chunk := range chunks {
-			innerWriter := writers[i]
+			innerWriter := writers[i+1]
 			for _, v := range chunk {
 				info := result.Get(v.Code)
 				buyPrice := 0.0

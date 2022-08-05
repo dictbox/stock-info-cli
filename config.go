@@ -13,6 +13,7 @@ type Stock struct {
 }
 
 type Config struct {
+	Index  []string
 	Stocks []Stock
 }
 
