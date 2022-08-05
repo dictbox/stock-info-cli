@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/gosuri/uilive"
+	"github.com/apoorvam/goterminal"
 	"github.com/spf13/viper"
 	"github.com/tidwall/gjson"
-	"io"
 	"io/ioutil"
 	"math"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -55,20 +55,23 @@ func main() {
 
 	GetStockInfo()
 
-	writer := uilive.New()
+	//writer := uilive.New()
+	writer := goterminal.New(os.Stdout)
 	// start listening for updates and render
-	writer.Start()
-	var writers []io.Writer
-	writers = append(writers, writer)
-	for j := 0; j <= lines; j++ {
-		writers = append(writers, writer.Newline())
-	}
+	//writer.Start()
+	//var writers []io.Writer
+	//writers = append(writers, writer)
+	//for j := 0; j <= lines; j++ {
+	//	writers = append(writers, writer.Newline())
+	//}
 
 	chunks := ArrayChunk(configJson.Stocks, 2)
 
+	innerWriter := writer // writers[0]
+
 	for {
 		//打印指数
-		innerWriter := writers[0]
+		//innerWriter := writers[0]
 		for _, indexCode := range configJson.Index {
 			info := result.Get(indexCode)
 			fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%\t",
@@ -77,8 +80,8 @@ func main() {
 		}
 		fmt.Fprintln(innerWriter)
 
-		for i, chunk := range chunks {
-			innerWriter := writers[i+1]
+		for _, chunk := range chunks {
+			//innerWriter := writers[i+1]
 			for _, v := range chunk {
 				info := result.Get(v.Code)
 				buyPrice := 0.0
@@ -108,13 +111,16 @@ func main() {
 			fmt.Fprintln(innerWriter)
 		}
 
+		writer.Print()
+
 		time.Sleep(time.Second * 10)
 		//获取待更新的数据
 		GetStockInfo()
+		innerWriter.Clear()
 	}
 
 	//
-	writer.Stop() // flush and stop rendering
+	writer.Reset() // flush and stop rendering
 
 	//r, e := http.Get("https://github.com/manifest.json")
 	//if e != nil {
