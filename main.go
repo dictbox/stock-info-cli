@@ -70,9 +70,28 @@ func main() {
 			innerWriter := writers[i]
 			for _, v := range chunk {
 				info := result.Get(v.Code)
-				fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%\t",
-					v.Code, info.Get("high").Float(), info.Get("low").Float(), info.Get("price").Float(),
-					info.Get("percent").Float()*100)
+				buyPrice := 0.0
+				sellPrice := 0.0
+				hold := 0
+				if v.Grids != nil {
+					price := info.Get("price").Float()
+					for _, g := range v.Grids {
+						if g.Buy < price && g.Sell > price {
+							buyPrice = g.Buy
+							sellPrice = g.Sell
+							hold = g.Hold
+							break
+						}
+					}
+
+					fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f|%8d\t",
+						v.Code, info.Get("high").Float(), info.Get("low").Float(), price,
+						info.Get("percent").Float()*100, buyPrice, sellPrice, hold)
+				} else {
+					fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f|%8d\t",
+						v.Code, info.Get("high").Float(), info.Get("low").Float(), info.Get("price").Float(),
+						info.Get("percent").Float()*100, buyPrice, sellPrice, hold)
+				}
 			}
 
 			fmt.Fprintln(innerWriter)

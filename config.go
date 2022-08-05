@@ -2,9 +2,9 @@ package main
 
 type Grid struct {
 	Level int8
-	Buy   float32
-	Sell  float32
-	Hold  int64
+	Buy   float64
+	Sell  float64
+	Hold  int
 }
 
 type Stock struct {
