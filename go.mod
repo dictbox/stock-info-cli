@@ -5,7 +5,6 @@ go 1.18
 require (
 	github.com/apoorvam/goterminal v0.0.0-20180523175556-614d345c47e5
 	github.com/daviddengcn/go-colortext v1.0.0
-	github.com/gosuri/uilive v0.0.4
 	github.com/spf13/viper v1.12.0
 	github.com/tidwall/gjson v1.14.1
 )
