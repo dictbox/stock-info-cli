@@ -113,7 +113,7 @@ func main() {
 
 		writer.Print()
 
-		time.Sleep(time.Second * 10)
+		time.Sleep(time.Second * 5)
 		//获取待更新的数据
 		GetStockInfo()
 		innerWriter.Clear()
