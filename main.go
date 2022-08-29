@@ -72,12 +72,17 @@ func main() {
 	for {
 		//打印指数
 		//innerWriter := writers[0]
-		for _, indexCode := range configJson.Index {
+		for idx, indexCode := range configJson.Index {
+			if idx > 0 && idx%3 == 0 {
+				fmt.Fprintln(innerWriter)
+			}
+
 			info := result.Get(indexCode)
 			fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%\t",
 				indexCode, info.Get("high").Float(), info.Get("low").Float(), info.Get("price").Float(),
 				info.Get("percent").Float()*100)
 		}
+
 		fmt.Fprintln(innerWriter)
 
 		for _, chunk := range chunks {
