@@ -33,7 +33,8 @@ import (
 var wg sync.WaitGroup
 var mu sync.Mutex
 var stocks []string
-var result gjson.Result
+var indexStocks []string
+var result map[string]gjson.Result
 
 func main() {
 	config := viper.New()
@@ -44,8 +45,13 @@ func main() {
 
 	var configJson Config
 	config.Unmarshal(&configJson)
-	stocks = Map(configJson.Stocks)
-	stocks = append(stocks, configJson.Index...)
+	typeConverter := map[ExchangeType]string{
+		SH: "1",
+		SZ: "0",
+	}
+	stocks = Map(configJson.Stocks, typeConverter)
+	indexStocks = Map(configJson.Index, typeConverter)
+	stocks = append(stocks, indexStocks...)
 
 	count := len(configJson.Stocks)
 	lines := count / 2
@@ -72,15 +78,16 @@ func main() {
 	for {
 		//打印指数
 		//innerWriter := writers[0]
-		for idx, indexCode := range configJson.Index {
+		for idx, index := range configJson.Index {
 			if idx > 0 && idx%3 == 0 {
 				fmt.Fprintln(innerWriter)
 			}
 
-			info := result.Get(indexCode)
+			info := result[index.Code]
+			convert := math.Pow10(int(info.Get("f1").Int()))
 			fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%\t",
-				indexCode, info.Get("high").Float(), info.Get("low").Float(), info.Get("price").Float(),
-				info.Get("percent").Float()*100)
+				index.Code, info.Get("f15").Float()/convert, info.Get("f16").Float()/convert, info.Get("f2").Float()/convert,
+				info.Get("f3").Float()/convert)
 		}
 
 		fmt.Fprintln(innerWriter)
@@ -88,12 +95,13 @@ func main() {
 		for _, chunk := range chunks {
 			//innerWriter := writers[i+1]
 			for _, v := range chunk {
-				info := result.Get(v.Code)
+				info := result[v.Code]
+				convert := math.Pow10(int(info.Get("f1").Int()))
 				buyPrice := 0.0
 				sellPrice := 0.0
 				hold := 0
 				if v.Grids != nil {
-					price := info.Get("price").Float()
+					price := info.Get("f2").Float() / convert
 					for _, g := range v.Grids {
 						if g.Buy < price && g.Sell > price {
 							buyPrice = g.Buy
@@ -104,12 +112,12 @@ func main() {
 					}
 
 					fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f|%8d\t",
-						v.Code, info.Get("high").Float(), info.Get("low").Float(), price,
-						info.Get("percent").Float()*100, buyPrice, sellPrice, hold)
+						v.Code, info.Get("f15").Float()/convert, info.Get("f16").Float()/convert, price,
+						info.Get("f3").Float()/convert, buyPrice, sellPrice, hold)
 				} else {
 					fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f|%8d\t",
-						v.Code, info.Get("high").Float(), info.Get("low").Float(), info.Get("price").Float(),
-						info.Get("percent").Float()*100, buyPrice, sellPrice, hold)
+						v.Code, info.Get("f15").Float()/convert, info.Get("f16").Float()/convert, info.Get("f2").Float()/convert,
+						info.Get("f3").Float()/convert, buyPrice, sellPrice, hold)
 				}
 			}
 
@@ -146,14 +154,21 @@ func main() {
 func GetStockInfo() {
 	//TODO:刷选出对应的CODE
 
-	url := fmt.Sprintf("https://api.money.126.net/data/feed/%s?callback=go", strings.Join(stocks, ","))
+	url := fmt.Sprintf("https://push2.eastmoney.com/api/qt/ulist/get?invt=3&pi=0&pz=20&mpi=2000&secids=%s&fields=f1,f2,f3,f12,f13,f14,f15,f16,f17,f18&po=1", strings.Join(stocks, ","))
 	r, e := http.Get(url)
 	if e == nil {
 		s, _ := ioutil.ReadAll(r.Body)
 		body := fmt.Sprintf("%s", s)
 		body = strings.TrimRight(strings.TrimLeft(body, "go("), ")")
 		//fmt.Println(body)
-		result = gjson.Parse(body)
+		bodyResult := gjson.Parse(body)
+		total := bodyResult.Get("data.total").Int()
+		result = make(map[string]gjson.Result, total)
+		bodyResult.Get("data.diff").ForEach(func(key, value gjson.Result) bool {
+			name := value.Get("f12").String()
+			result[name] = value
+			return true
+		})
 	}
 }
 
