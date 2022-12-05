@@ -93,7 +93,7 @@ func main() {
 
 			info := result[index.Code]
 			convert := math.Pow10(int(info.Get("f1").Int()))
-			fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%\t",
+			fmt.Fprintf(innerWriter, "%6s|%8.3f|%8.3f|%8.3f|%6.2f%%\t",
 				index.Code, info.Get("f15").Float()/convert, info.Get("f16").Float()/convert, info.Get("f2").Float()/convert,
 				info.Get("f3").Float()/100)
 		}
@@ -119,11 +119,11 @@ func main() {
 						}
 					}
 
-					fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f|%8d\t",
+					fmt.Fprintf(innerWriter, "%6s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f|%8d\t",
 						v.Code, info.Get("f15").Float()/convert, info.Get("f16").Float()/convert, price,
 						info.Get("f3").Float()/100, buyPrice, sellPrice, hold)
 				} else {
-					fmt.Fprintf(innerWriter, "%7s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f|%8d\t",
+					fmt.Fprintf(innerWriter, "%6s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f|%8d\t",
 						v.Code, info.Get("f15").Float()/convert, info.Get("f16").Float()/convert, info.Get("f2").Float()/convert,
 						info.Get("f3").Float()/100, buyPrice, sellPrice, hold)
 				}
