@@ -38,6 +38,7 @@ var result map[string]gjson.Result
 var upCount int64
 var flatCount int64
 var downCount int64
+var amountCount float64
 
 func main() {
 	config := viper.New()
@@ -81,7 +82,7 @@ func main() {
 
 	for {
 		// 打印涨跌家数
-		fmt.Fprintf(innerWriter, "U:%d|F:%d|D:%d", upCount, flatCount, downCount)
+		fmt.Fprintf(innerWriter, "U:%d|F:%d|D:%d|AMO:%.2f", upCount, flatCount, downCount, amountCount/100000000)
 		fmt.Fprintln(innerWriter)
 
 		//打印指数
@@ -186,6 +187,7 @@ func GetStatsCount() {
 	upCount = 0
 	flatCount = 0
 	downCount = 0
+	amountCount = 0
 	url := fmt.Sprintf("https://push2.eastmoney.com/api/qt/ulist.np/get?fields=f1,f2,f3,f4,f6,f104,f105,f106,f152&secids=1.000001,0.399001")
 	r, e := http.Get(url)
 	if e == nil {
@@ -193,9 +195,10 @@ func GetStatsCount() {
 		body := fmt.Sprintf("%s", s)
 		bodyResult := gjson.Parse(body)
 		bodyResult.Get("data.diff").ForEach(func(key, value gjson.Result) bool {
-			upCount = upCount + value.Get("f104").Int()
-			flatCount = flatCount + value.Get("f106").Int()
-			downCount = downCount + value.Get("f105").Int()
+			upCount += value.Get("f104").Int()
+			flatCount += value.Get("f106").Int()
+			downCount += value.Get("f105").Int()
+			amountCount += value.Get("f6").Float()
 			return true
 		})
 		// {"rc":0,"rt":11,"svr":182999890,"lt":1,"full":1,"dlmkts":"","data":{"total":2,"diff":[{"f1":2,"f2":315614,"f3":-29,"f4":-933,"f6":366318678808.3,"f104":1186,"f105":913,"f106":100,"f152":2},{"f1":2,"f2":1121979,"f3":-39,"f4":-4437,"f6":498207072951.0528,"f104":1818,"f105":864,"f106":83,"f152":2}]}}
