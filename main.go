@@ -164,7 +164,7 @@ func main() {
 func GetStockInfo() {
 	//TODO:刷选出对应的CODE
 
-	url := fmt.Sprintf("https://push2.eastmoney.com/api/qt/ulist/get?invt=3&pi=0&pz=20&mpi=2000&secids=%s&fields=f1,f2,f3,f12,f13,f14,f15,f16,f17,f18&po=1", strings.Join(stocks, ","))
+	url := fmt.Sprintf("https://push2.eastmoney.com/api/qt/ulist/get?invt=3&pi=0&pz=30&mpi=2000&secids=%s&fields=f1,f2,f3,f12,f13,f14,f15,f16,f17,f18&po=1", strings.Join(stocks, ","))
 	r, e := http.Get(url)
 	if e == nil {
 		s, _ := ioutil.ReadAll(r.Body)
