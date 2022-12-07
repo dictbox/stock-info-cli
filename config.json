@@ -137,14 +137,14 @@
       "name": "中概互联网"
     },
     {
-      "type": "SH",
-      "code": "512660",
-      "name": "军工ETF"
+      "type": "SZ",
+      "code": "159825",
+      "name": "农业ETF"
     },
     {
       "type": "SH",
-      "code": "515790",
-      "name": "光伏ETF"
+      "code": "512660",
+      "name": "军工ETF"
     },
     {
       "type": "SZ",
@@ -152,9 +152,19 @@
       "name": "电力ETF"
     },
     {
-      "type": "SZ",
-      "code": "159825",
-      "name": "农业ETF"
+      "type": "SH",
+      "code": "515790",
+      "name": "光伏ETF"
+    },
+    {
+      "type": "SH",
+      "code": "515030",
+      "name": "新能源车"
+    },
+    {
+      "type": "SH",
+      "code": "516160",
+      "name": "新能源"
     }
   ]
 }
