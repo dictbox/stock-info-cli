@@ -108,25 +108,25 @@ func main() {
 				convert := math.Pow10(int(info.Get("f1").Int()))
 				buyPrice := 0.0
 				sellPrice := 0.0
-				hold := 0
+				// hold := 0
 				if v.Grids != nil {
 					price := info.Get("f2").Float() / convert
 					for _, g := range v.Grids {
 						if g.Buy < price && g.Sell > price {
 							buyPrice = g.Buy
 							sellPrice = g.Sell
-							hold = g.Hold
+							// hold = g.Hold
 							break
 						}
 					}
 
-					fmt.Fprintf(innerWriter, "%6s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f|%8d\t",
+					fmt.Fprintf(innerWriter, "%6s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f\t",
 						v.Code, info.Get("f15").Float()/convert, info.Get("f16").Float()/convert, price,
-						info.Get("f3").Float()/100, buyPrice, sellPrice, hold)
+						info.Get("f3").Float()/100, buyPrice, sellPrice)
 				} else {
-					fmt.Fprintf(innerWriter, "%6s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f|%8d\t",
+					fmt.Fprintf(innerWriter, "%6s|%8.3f|%8.3f|%8.3f|%6.2f%%|%8.3f|%8.3f\t",
 						v.Code, info.Get("f15").Float()/convert, info.Get("f16").Float()/convert, info.Get("f2").Float()/convert,
-						info.Get("f3").Float()/100, buyPrice, sellPrice, hold)
+						info.Get("f3").Float()/100, buyPrice, sellPrice)
 				}
 			}
 
