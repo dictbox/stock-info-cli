@@ -16,14 +16,19 @@
       "name": "恒生ETF"
     },
     {
-      "type": "SH",
-      "code": "510500",
-      "name": "中证500"
+      "type": "SZ",
+      "code": "159339",
+      "name": "A500"
     },
     {
       "type": "SH",
       "code": "510300",
       "name": "沪深300"
+    },
+    {
+      "type": "SH",
+      "code": "510050",
+      "name": "上证50"
     }
   ],
   "stocks": [
@@ -39,82 +44,17 @@
       "grids": [
         {
           "level": 1,
-          "buy": 0.901,
-          "sell": 0.889,
-          "hold": 2500
+          "buy": 0.927,
+          "sell": 1.030,
+          "hold": 11900
         },
         {
           "level": 2,
-          "buy": 0.811,
-          "sell": 0.892,
-          "hold": 0
+          "buy": 0.762,
+          "sell": 0.927,
+          "hold": 16500
         }
       ]
-    },
-    {
-      "type": "SZ",
-      "code": "002701",
-      "name": "奥瑞金",
-      "grids": [
-        {
-          "level": 1,
-          "buy": 4.51,
-          "sell": 5.35,
-          "hold": 10000
-        },
-        {
-          "level": 2,
-          "buy": 4.01,
-          "sell": 4.40,
-          "hold": 0,
-          "plan": 5000
-        }
-      ]
-    },
-    {
-      "type": "SZ",
-      "code": "159928",
-      "name": "消费ETF"
-    },
-    {
-      "type": "SH",
-      "code": "600050",
-      "name": "中国联通"
-    },
-    {
-      "type": "SZ",
-      "code": "159781",
-      "name": "双创50"
-    },
-    {
-      "type": "SH",
-      "code": "600028",
-      "name": "中国石化"
-    },
-    {
-      "type": "SH",
-      "code": "588000",
-      "name": "科创50"
-    },
-    {
-      "type": "SZ",
-      "code": "000651",
-      "name": "格力电器"
-    },
-    {
-      "type": "SH",
-      "code": "512010",
-      "name": "医药ETF"
-    },
-    {
-      "type": "SH",
-      "code": "601816",
-      "name": "京沪高铁"
-    },
-    {
-      "type": "SH",
-      "code": "513360",
-      "name": "教育ETF"
     },
     {
       "type": "SH",
@@ -124,27 +64,47 @@
     {
       "type": "SH",
       "code": "513180",
-      "name": "恒生科技"
-    },
-    {
-      "type": "SZ",
-      "code": "000876",
-      "name": "新希望"
+      "name": "恒生科技",
+      "grids": [
+        {
+          "level": 1,
+          "buy": 0.570,
+          "sell": 0.618,
+          "hold": 24600
+        },
+        {
+          "level": 2,
+          "buy": 0.494,
+          "sell": 0.570,
+          "hold": 0,
+          "plan": 30000
+        }
+      ]
     },
     {
       "type": "SH",
-      "code": "513050",
-      "name": "中概互联网"
-    },
-    {
-      "type": "SZ",
-      "code": "159825",
-      "name": "农业ETF"
+      "code": "600519",
+      "name": "贵州茅台"
     },
     {
       "type": "SH",
-      "code": "512660",
-      "name": "军工ETF"
+      "code": "562500",
+      "name": "机器人ETF"
+    },
+    {
+      "type": "SH",
+      "code": "600050",
+      "name": "中国联通"
+    },
+    {
+      "type": "SH",
+      "code": "513060",
+      "name": "恒生医药"
+    },
+    {
+      "type": "SH",
+      "code": "600028",
+      "name": "中国石化"
     },
     {
       "type": "SZ",
@@ -152,19 +112,64 @@
       "name": "电力ETF"
     },
     {
-      "type": "SH",
-      "code": "515030",
-      "name": "新能源车"
+      "type": "SZ",
+      "code": "000725",
+      "name": "京东方A"
     },
-	{
+    {
       "type": "SH",
-      "code": "515790",
-      "name": "光伏ETF"
+      "code": "588000",
+      "name": "科创50"
+    },
+    {
+      "type": "SH",
+      "code": "601816",
+      "name": "京沪高铁"
+    },
+    {
+      "type": "SH",
+      "code": "512980",
+      "name": "传媒ETF",
+      "grids": [
+        {
+          "level": 1,
+          "buy": 0.720,
+          "sell": 0.780,
+          "hold": 0
+        },
+        {
+          "level": 2,
+          "buy": 0.630,
+          "sell": 0.729,
+          "hold": 0
+        },
+        {
+          "level": 3,
+          "buy": 0.561,
+          "sell": 0.630,
+          "hold": 0
+        }
+      ]
     },
     {
       "type": "SZ",
-      "code": "159995",
-      "name": "芯片ETF"
+      "code": "002701",
+      "name": "奥瑞金"
+    },
+    {
+      "type": "SH",
+      "code": "512010",
+      "name": "医药"
+    },
+    {
+      "type": "SZ",
+      "code": "000876",
+      "name": "新希望"
+    },
+    {
+      "type": "SZ",
+      "code": "159865",
+      "name": "养殖ETF"
     }
   ]
 }
