@@ -162,14 +162,14 @@
       "name": "医药"
     },
     {
-      "type": "SZ",
-      "code": "000876",
-      "name": "新希望"
+      "type": "SH",
+      "code": "601668",
+      "name": "中国建筑"
     },
     {
-      "type": "SZ",
-      "code": "159865",
-      "name": "养殖ETF"
+      "type": "SH",
+      "code": "516970",
+      "name": "基建50ETF"
     }
   ]
 }
