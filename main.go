@@ -128,6 +128,7 @@ func main() {
 	//GetStockInfo()
 }
 
+// GetStockInfo 获取配置中所有标的的信息
 func GetStockInfo() {
 	//TODO:刷选出对应的CODE
 
@@ -162,10 +163,10 @@ func GetStatsCount() {
 		body := fmt.Sprintf("%s", s)
 		bodyResult := gjson.Parse(body)
 		bodyResult.Get("data.diff").ForEach(func(key, value gjson.Result) bool {
-			upCount += value.Get("f104").Int()
-			flatCount += value.Get("f106").Int()
-			downCount += value.Get("f105").Int()
-			amountCount += value.Get("f6").Float()
+			upCount += value.Get("f104").Int()     //上涨家数
+			flatCount += value.Get("f106").Int()   //持平家数
+			downCount += value.Get("f105").Int()   //下跌家数
+			amountCount += value.Get("f6").Float() //成交金额
 			return true
 		})
 	}
