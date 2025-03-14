@@ -3,8 +3,10 @@ package main
 type ExchangeType string
 
 const (
-	SH = "SH"
-	SZ = "SZ"
+	SH = "SH" //上交所
+	SZ = "SZ" //深交所
+	HS = "HS" //恒生
+	SP = "SP" //新加坡
 )
 
 type Grid struct {

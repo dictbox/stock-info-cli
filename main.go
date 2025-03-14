@@ -36,6 +36,8 @@ func main() {
 	typeConverter := map[ExchangeType]string{
 		SH: "1",
 		SZ: "0",
+		HS: "134",
+		SP: "104",
 	}
 	stocks = Map(configJson.Stocks, typeConverter)
 	indexStocks = Map(configJson.Index, typeConverter)

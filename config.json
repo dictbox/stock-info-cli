@@ -170,6 +170,16 @@
       "type": "SH",
       "code": "516970",
       "name": "基建50ETF"
+    },
+    {
+      "type": "HS",
+      "code": "HTI_M",
+      "name": "恒生科技期货"
+    },
+    {
+      "type": "SP",
+      "code": "CN00Y",
+      "name": "新加坡A50期货"
     }
   ]
 }
