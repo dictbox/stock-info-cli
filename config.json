@@ -44,15 +44,33 @@
       "grids": [
         {
           "level": 1,
-          "buy": 0.927,
-          "sell": 1.030,
-          "hold": 11900
+          "buy": 1.242,
+          "sell": 1.365,
+          "hold": 0
         },
         {
           "level": 2,
+          "buy": 1.131,
+          "sell": 1.239,
+          "hold": 6000
+        },
+        {
+          "level": 3,
+          "buy": 1.032,
+          "sell": 1.128,
+          "hold": 12000
+        },
+        {
+          "level": 4,
+          "buy": 0.927,
+          "sell": 1.029,
+          "hold": 0
+        },
+        {
+          "level": 5,
           "buy": 0.762,
           "sell": 0.927,
-          "hold": 16500
+          "hold": 0
         }
       ]
     },
@@ -68,16 +86,23 @@
       "grids": [
         {
           "level": 1,
-          "buy": 0.570,
-          "sell": 0.618,
-          "hold": 24600
+          "buy": 0.633,
+          "sell": 0.696,
+          "hold": 0
         },
         {
           "level": 2,
-          "buy": 0.494,
-          "sell": 0.570,
+          "buy": 0.573,
+          "sell": 0.627,
           "hold": 0,
-          "plan": 30000
+          "plan": 0
+        },
+        {
+          "level": 3,
+          "buy": 0.516,
+          "sell": 0.567,
+          "hold": 0,
+          "plan": 0
         }
       ]
     },
@@ -88,8 +113,8 @@
     },
     {
       "type": "SH",
-      "code": "562500",
-      "name": "机器人ETF"
+      "code": "588000",
+      "name": "科创50"
     },
     {
       "type": "SH",
@@ -98,33 +123,27 @@
     },
     {
       "type": "SH",
-      "code": "513060",
-      "name": "恒生医药"
+      "code": "562500",
+      "name": "机器人ETF",
+      "grids": [
+        {
+          "level": 1,
+          "buy": 0.801,
+          "sell": 0.882,
+          "hold": 0
+        },
+        {
+          "level": 2,
+          "buy": 0.726,
+          "sell": 0.798,
+          "hold": 0
+        }
+      ]
     },
     {
       "type": "SH",
       "code": "600028",
       "name": "中国石化"
-    },
-    {
-      "type": "SZ",
-      "code": "159611",
-      "name": "电力ETF"
-    },
-    {
-      "type": "SZ",
-      "code": "000725",
-      "name": "京东方A"
-    },
-    {
-      "type": "SH",
-      "code": "588000",
-      "name": "科创50"
-    },
-    {
-      "type": "SH",
-      "code": "601816",
-      "name": "京沪高铁"
     },
     {
       "type": "SH",
@@ -133,28 +152,48 @@
       "grids": [
         {
           "level": 1,
-          "buy": 0.720,
-          "sell": 0.780,
+          "buy": 0.702,
+          "sell": 0.771,
           "hold": 0
         },
         {
           "level": 2,
-          "buy": 0.630,
-          "sell": 0.729,
+          "buy": 0.633,
+          "sell": 0.699,
           "hold": 0
         },
         {
           "level": 3,
-          "buy": 0.561,
-          "sell": 0.630,
+          "buy": 0.573,
+          "sell": 0.627,
           "hold": 0
         }
       ]
     },
     {
       "type": "SZ",
+      "code": "000725",
+      "name": "京东方A"
+    },
+    {
+      "type": "SZ",
+      "code": "159611",
+      "name": "电力ETF"
+    },
+    {
+      "type": "SZ",
       "code": "002701",
       "name": "奥瑞金"
+    },
+    {
+      "type": "SH",
+      "code": "513060",
+      "name": "恒生医药"
+    },
+    {
+      "type": "SH",
+      "code": "601816",
+      "name": "京沪高铁"
     },
     {
       "type": "SH",
@@ -167,9 +206,19 @@
       "name": "中国建筑"
     },
     {
+      "type": "SZ",
+      "code": "159928",
+      "name": "消费ETF"
+    },
+    {
       "type": "SH",
-      "code": "516970",
-      "name": "基建50ETF"
+      "code": "512800",
+      "name": "银行ETF"
+    },
+    {
+      "type": "SH",
+      "code": "513100",
+      "name": "纳指100ETF"
     },
     {
       "type": "HS",
