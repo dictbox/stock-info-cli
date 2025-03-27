@@ -84,7 +84,8 @@ func main() {
 				info.Get("f3").Float()/100)
 		}
 
-		_, _ = fmt.Fprintln(innerWriter)
+		//goland:noinspection GoUnhandledErrorResult
+		fmt.Fprintln(innerWriter)
 
 		for _, chunk := range chunks {
 			//innerWriter := writers[i+1]
